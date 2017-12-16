@@ -11,6 +11,7 @@ except:
 import sys
 from app.logic import *
 
+
 class MainWindow(QMainWindow, Ui_MainWindow):
 
     def __init__(self):
@@ -18,7 +19,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
 
-        self.start_button.clicked.connect(testing_threads)
+        self.logic = Logic()
+        self.start_button.clicked.connect(self.logic.testing_threads)
+
 
 if __name__ == "__main__":
 

@@ -1,22 +1,25 @@
 from PyQt5.QtCore import *
+import time
 
 
 class Worker(QObject):
 
     def __init__(self):
 
-        super(Worker, self).__init__()
+        super().__init__()
 
         print("Hi! I'm your friendly worker and I'm being initialized")
 
     def task(self):
 
-        print("I'm your worker and I'm running your task")
+        while True:
+            print("I'm your worker and I'm running your task")
+            time.sleep(1)
 
 
-class MultiThreading():
+class MultiThreading(QThread):
     def __init__(self):
-        super(MultiThreading, self).__init__()
+        super().__init__()
 
     def create_thread(self):
 

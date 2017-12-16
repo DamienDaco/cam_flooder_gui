@@ -1,8 +1,13 @@
 from app.multithreading import *
-from ui.design_cam_flooder_gui import Ui_MainWindow
+#from ui.design_cam_flooder_gui import Ui_MainWindow
 
 
-def testing_threads():
+class Logic():
+    def __init__(self):
+        super().__init__()
+        print("Logic has been initialized")
 
-    thread = MultiThreading()
-    thread.create_thread()
+    def testing_threads(self):
+
+        self.thread = MultiThreading()
+        self.thread.create_thread()
