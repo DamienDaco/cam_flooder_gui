@@ -9,7 +9,7 @@ except:
     exit()
 
 import sys
-
+from app.logic import *
 
 class MainWindow(QMainWindow, Ui_MainWindow):
 
@@ -18,6 +18,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
 
+        self.start_button.clicked.connect(testing_threads)
 
 if __name__ == "__main__":
 
