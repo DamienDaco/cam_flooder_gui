@@ -1,9 +1,8 @@
-from design_cam_flooder_gui import Ui_MainWindow
+from ui.design_cam_flooder_gui import Ui_MainWindow
 
 
 try:
     from PyQt5.QtCore import *
-    # from PyQt5.QtGui import *
     from PyQt5.QtWidgets import *
 except:
     print("[-] Import failed. PyQt5 library not found. \nTry installing it with: apt install python3-qt5")
