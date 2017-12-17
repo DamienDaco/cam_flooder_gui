@@ -6,12 +6,14 @@ class Logic:
         super().__init__()
         print("Logic has been initialized")
         self.threads = []                   # List for storing multiple threads
+        self.worker_id = 0
 
     def start_thread(self):
 
-        self.thread = MultiThreading()
+        self.thread = MultiThreading(self.worker_id)
         self.thread.create_thread()
         self.threads.append(self.thread)    # Store the thread in a list for later usage
+        self.worker_id += 1
 
     def stop_thread(self):
 
