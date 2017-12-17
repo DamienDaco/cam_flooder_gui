@@ -11,9 +11,12 @@ class Logic:
 
         self.thread = MultiThreading()
         self.thread.create_thread()
-        self.threads.append(self.thread)    # Store the thread in a list for further use later
+        self.threads.append(self.thread)    # Store the thread in a list for later usage
 
     def stop_thread(self):
 
-        for thread in self.threads:         # Let's go through the list of threads
-            thread.stop_thread()            # And send the stop signal to each thread
+        if len(self.threads) > 0:               # Check if there's something in the list
+            for thread in self.threads:         # Let's go through the list of threads
+                thread.stop_thread()            # And send the stop signal to each thread
+
+        self.threads = []                       # When done, reset list
