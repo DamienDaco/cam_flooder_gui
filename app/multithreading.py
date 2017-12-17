@@ -1,5 +1,6 @@
 from PyQt5.QtCore import *
-import time
+from work import *
+
 
 
 class Worker(QObject):
@@ -12,11 +13,10 @@ class Worker(QObject):
         print("Hi! I'm your friendly worker and I'm being initialized.")
 
     def task(self):
-        i = 0
+        index = 0
         while self.is_running:
-            i += 1
-            print("I'm your worker and I'm running your task number %d" % i)
-            time.sleep(1)
+            work(index)
+            index += 1
 
     def stop(self):
 
