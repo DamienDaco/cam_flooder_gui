@@ -20,6 +20,9 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.logic = Logic()
+        self.__id = int(QThread.currentThreadId())
+        print("Main thread id is %s" % self.__id)
+
         self.start_button.clicked.connect(self.logic.start_thread)
         self.stop_button.clicked.connect(self.logic.stop_thread)
 
