@@ -1,6 +1,6 @@
 import time
 
-def work(index):
+def work(index, rate):
 
-    print("Performing job number %d" % index)
-    time.sleep(1)
+    print("Rate is %d" % rate)
+    time.sleep(rate)

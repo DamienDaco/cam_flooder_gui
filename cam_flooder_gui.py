@@ -16,12 +16,22 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.setupUi(self)
 
-        self.logic = Logic()
+        self.slider_value = self.rate_slider.value()
+        print("Slider value is %d" % self.slider_value)
+        self.logic = Logic(self.slider_value)
         self.__id = int(QThread.currentThreadId())
         print("Main thread id is %s" % self.__id)
 
         self.start_button.clicked.connect(self.logic.start_thread)
         self.stop_button.clicked.connect(self.logic.stop_thread)
+
+
+        self.rate_slider.valueChanged.connect(self.slider_value_changed)
+
+    def slider_value_changed(self):
+        self.slider_value = self.rate_slider.value()
+        print("New slider value is %d" % self.slider_value)
+        self.logic.slider_value_changed(self.slider_value)
 
 
 if __name__ == "__main__":
