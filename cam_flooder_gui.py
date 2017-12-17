@@ -20,7 +20,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.logic = Logic()
-        self.start_button.clicked.connect(self.logic.testing_threads)
+        self.start_button.clicked.connect(self.logic.start_thread)
+        self.stop_button.clicked.connect(self.logic.stop_thread)
 
 
 if __name__ == "__main__":

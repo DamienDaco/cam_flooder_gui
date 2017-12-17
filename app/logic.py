@@ -7,7 +7,11 @@ class Logic():
         super().__init__()
         print("Logic has been initialized")
 
-    def testing_threads(self):
+    def start_thread(self):
 
         self.thread = MultiThreading()
         self.thread.create_thread()
+
+    def stop_thread(self):
+
+        self.thread.stop_thread()
