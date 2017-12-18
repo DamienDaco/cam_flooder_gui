@@ -25,13 +25,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.start_button.clicked.connect(self.logic.start_thread)
         self.stop_button.clicked.connect(self.logic.stop_thread)
 
-
-        self.rate_slider.valueChanged.connect(self.slider_value_changed)
-
-    def slider_value_changed(self):
-        self.slider_value = self.rate_slider.value()
-        print("New slider value is %d" % self.slider_value)
-        self.logic.slider_value_changed(self.slider_value)
+        self.rate_slider.valueChanged.connect(self.logic.slider_value_changed)
 
 
 if __name__ == "__main__":

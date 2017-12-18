@@ -6,15 +6,13 @@ class Logic:
         super().__init__()
         print("Logic has been initialized")
         self.threads = []                   # List for storing multiple threads
-        self.worker_id = 0
         self.slider_value = slider_value
 
     def start_thread(self):
 
-        self.thread = MultiThreading(self.worker_id, self.slider_value)
-        self.thread.create_thread()
-        self.threads.append(self.thread)    # Store the thread in a list for later usage
-        self.worker_id += 1
+        self.thread = MultiThreading(self.slider_value)
+        self.thread.start_thread()
+        self.threads.append(self.thread)
 
     def stop_thread(self):
 
@@ -25,8 +23,9 @@ class Logic:
         self.threads = []                       # When done, reset list
 
     def slider_value_changed(self, slider_value):
+
         self.slider_value = slider_value
+        print("New slider value is %d" % self.slider_value)
         if len(self.threads) > 0:
-            print(self.threads)
-            for thread, worker in self.threads:
-                worker.change_worker_rate(self.slider_value)
+            for thread in self.threads:
+                thread.slider_value_changed(self.slider_value)

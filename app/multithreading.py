@@ -4,14 +4,13 @@ from work import *
 
 class Worker(QObject):
 
-    def __init__(self, worker_id: int, rate):
+    def __init__(self, rate):
 
         super().__init__()
 
         self.is_running = True
-        self.worker_id = worker_id
         self.rate = rate
-        print("Hi! I'm your friendly worker number %d and I'm being initialized." % self.worker_id)
+        print("Hi! I'm your friendly worker and I'm being initialized.")
 
     def task(self):
         index = 0
@@ -19,7 +18,6 @@ class Worker(QObject):
             work(index, self.rate)
             index += 1
 
-    @pyqtSlot()
     def change_worker_rate(self, rate):
         self.rate = rate
 
@@ -30,26 +28,38 @@ class Worker(QObject):
 
 class MultiThreading(QThread):
 
-    def __init__(self, worker_id: int, rate):
+    def __init__(self, rate):
         super().__init__()
-        self.worker_id = worker_id
         self.rate = rate
+        self.threads = []
 
-    def create_thread(self):
+    def start_thread(self):
 
+        self.__worker = Worker(self.rate)
         self.__thread = QThread()
-        self.__worker = Worker(self.worker_id, self.rate)
+        self.threads.append((self.__worker, self.__thread))
         self.__worker.moveToThread(self.__thread)
         self.__thread.started.connect(self.__worker.task)
         self.__thread.start()
 
     def stop_thread(self):
 
-        print("Sending stop signal to thread")
-        self.__worker.stop()
-        self.__thread.quit()
-        self.__thread.wait()
+        if len(self.threads) > 0:                       # Check if there's something in the list
+            print("Sending stop signal to thread")
+            for worker, thread in self.threads:         # Let's go through the list of threads
+                worker.stop()                           # And send the stop signal to each worker/thread
+                thread.quit()
+                thread.wait()
 
-    @pyqtSlot()
+        self.threads = []                               # When done, reset list
+
+    def slider_value_changed(self, slider_value):
+        if len(self.threads) > 0:
+            print("Sending new slider value to threads")
+            for worker, thread in self.threads:
+                worker.rate = slider_value
+
     def change_worker_rate(self, rate):
-        self.rate = rate
+        if len(self.threads) > 0:
+            for worker in self.threads:
+                worker.change_worker_rate(rate)
