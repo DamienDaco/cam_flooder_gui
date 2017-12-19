@@ -6,13 +6,15 @@ class Logic:
         super().__init__()
         print("Logic has been initialized")
         self.threads = []                   # List for storing multiple threads
+        self.identities = 0                # List of workers identities (numbers)
         self.slider_value = slider_value
 
     def start_thread(self):
 
-        self.thread = MultiThreading(self.slider_value)
-        self.thread.start_thread()
-        self.threads.append(self.thread)
+        thread = MultiThreading(self.slider_value, self.identities)
+        thread.start_thread()
+        self.threads.append(thread)
+        self.identities += 1
 
     def stop_thread(self):
 
@@ -21,6 +23,7 @@ class Logic:
                 thread.stop_thread()            # And send the stop signal to each thread
 
         self.threads = []                       # When done, reset list
+        self.identities = 0
 
     def slider_value_changed(self, slider_value):
 

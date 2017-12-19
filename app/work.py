@@ -1,6 +1,7 @@
 import time
 
-def work(index, rate):
 
-    print("Job number %d Rate is %d" % (index, rate))
+def work(identity, index, rate):
+
+    print("Worker %d is performing job number %d. Rate is %d" % (identity, index, rate))
     time.sleep(rate)

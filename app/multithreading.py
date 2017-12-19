@@ -4,18 +4,22 @@ from work import *
 
 class Worker(QObject):
 
-    def __init__(self, rate):
+    def __init__(self, rate, identity):
 
         super().__init__()
 
         self.is_running = True
         self.rate = rate
-        print("Hi! I'm your friendly worker and I'm being initialized.")
+        self.identity = identity
+        thread = QThread.currentThread()
+        thread_id = int(QThread.currentThreadId())
+        print("Hi! I'm your friendly worker %d and I'm being initialized." % self.identity)
+        print("My current thread is %s and my thread ID is %s" % (thread, thread_id))
 
     def task(self):
         index = 0
         while self.is_running:
-            work(index, self.rate)
+            work(self.identity, index, self.rate)
             index += 1
 
     def change_worker_rate(self, rate):
@@ -28,14 +32,15 @@ class Worker(QObject):
 
 class MultiThreading(QThread):
 
-    def __init__(self, rate):
+    def __init__(self, rate, identity):
         super().__init__()
         self.rate = rate
+        self.identity = identity
         self.threads = []
 
     def start_thread(self):
 
-        self.__worker = Worker(self.rate)
+        self.__worker = Worker(self.rate, self.identity)
         self.__thread = QThread()
         self.threads.append((self.__worker, self.__thread))
         self.__worker.moveToThread(self.__thread)
