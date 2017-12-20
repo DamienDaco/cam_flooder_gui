@@ -26,12 +26,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.stop_button.clicked.connect(self.logic.stop_thread)
 
         self.rate_slider.valueChanged.connect(self.logic.slider_value_changed)
+        self.interface_box.currentIndexChanged.connect(self.get_current_interface)
 
-    # def get_current_interface(self):
-    #     interface = str(self.interface_box.currentText())
-    #     print("Selected interface: %s " % interface)
-    #     self.logic.selected_interface = interface
-    #     return interface
+    def get_current_interface(self):
+        interface = str(self.interface_box.currentText())
+        print("Selected interface: %s " % interface)
+        self.logic.selected_interface = interface
+        return interface
 
 
 if __name__ == "__main__":
