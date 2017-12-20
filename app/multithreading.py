@@ -1,10 +1,10 @@
 from PyQt5.QtCore import *
-from work import *
+from app.work import *
 
 
 class Worker(QObject):
 
-    def __init__(self, rate, identity):
+    def __init__(self, rate, identity, selected_interface):
 
         super().__init__()
 
@@ -13,13 +13,14 @@ class Worker(QObject):
         self.identity = identity
         thread = QThread.currentThread()
         thread_id = int(QThread.currentThreadId())
+        self.cam_flood_attack = CamFloodAttack(selected_interface)
         print("Hi! I'm your friendly worker %d and I'm being initialized." % self.identity)
         print("My current thread is %s and my thread ID is %s" % (thread, thread_id))
 
     def task(self):
         index = 0
         while self.is_running:
-            work(self.identity, index, self.rate)
+            self.cam_flood_attack.cam_flooder_random(self.identity, index, self.rate)
             index += 1
 
     def change_worker_rate(self, rate):
@@ -32,15 +33,16 @@ class Worker(QObject):
 
 class MultiThreading(QThread):
 
-    def __init__(self, rate, identity):
+    def __init__(self, rate, identity, selected_interface):
         super().__init__()
         self.rate = rate
         self.identity = identity
         self.threads = []
+        self.selected_interface = selected_interface
 
     def start_thread(self):
 
-        self.__worker = Worker(self.rate, self.identity)
+        self.__worker = Worker(self.rate, self.identity, self.selected_interface)
         self.__thread = QThread()
         self.threads.append((self.__worker, self.__thread))
         self.__worker.moveToThread(self.__thread)

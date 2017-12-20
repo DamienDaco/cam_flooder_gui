@@ -4,17 +4,18 @@ from app.network_functions import *
 
 class Logic:
 
-    def __init__(self, slider_value):
+    def __init__(self, slider_value, selected_interface):
         super().__init__()
         print("Logic has been initialized")
         self.threads = []                   # List for storing multiple threads
         self.identities = 0                # List of workers identities (numbers)
         self.slider_value = slider_value
         self.interfaces = get_interfaces()
+        self.selected_interface = selected_interface
 
     def start_thread(self):
 
-        thread = MultiThreading(self.slider_value, self.identities)
+        thread = MultiThreading(self.slider_value, self.identities, self.selected_interface)
         thread.start_thread()
         self.threads.append(thread)
         self.identities += 1
@@ -35,3 +36,5 @@ class Logic:
         if len(self.threads) > 0:
             for thread in self.threads:
                 thread.slider_value_changed(self.slider_value)
+
+

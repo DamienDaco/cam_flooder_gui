@@ -17,13 +17,21 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.slider_value = self.rate_slider.value()
-        self.logic = Logic(1.0 / float(self.slider_value))
-        self.interface_box.addItems(self.logic.interfaces)
+        self.interface_box.addItems(get_interfaces())
+        self.selected_interface = str(self.interface_box.currentText())
+        print("Selected interface is %s " % self.selected_interface)
+        self.logic = Logic(1.0 / float(self.slider_value), self.selected_interface)
 
         self.start_button.clicked.connect(self.logic.start_thread)
         self.stop_button.clicked.connect(self.logic.stop_thread)
 
         self.rate_slider.valueChanged.connect(self.logic.slider_value_changed)
+
+    # def get_current_interface(self):
+    #     interface = str(self.interface_box.currentText())
+    #     print("Selected interface: %s " % interface)
+    #     self.logic.selected_interface = interface
+    #     return interface
 
 
 if __name__ == "__main__":
