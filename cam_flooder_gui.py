@@ -18,6 +18,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
 
         self.slider_value = self.rate_slider.value()
         self.logic = Logic(self.slider_value)
+        self.interface_box.addItems(self.logic.interfaces)
 
         self.start_button.clicked.connect(self.logic.start_thread)
         self.stop_button.clicked.connect(self.logic.stop_thread)

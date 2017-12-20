@@ -1,5 +1,5 @@
 from app.multithreading import *
-
+from app.network_functions import *
 
 class Logic:
     def __init__(self, slider_value):
@@ -8,6 +8,7 @@ class Logic:
         self.threads = []                   # List for storing multiple threads
         self.identities = 0                # List of workers identities (numbers)
         self.slider_value = slider_value
+        self.interfaces = get_interfaces()
 
     def start_thread(self):
 
