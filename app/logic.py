@@ -1,7 +1,9 @@
 from app.multithreading import *
 from app.network_functions import *
 
+
 class Logic:
+
     def __init__(self, slider_value):
         super().__init__()
         print("Logic has been initialized")
@@ -28,8 +30,8 @@ class Logic:
 
     def slider_value_changed(self, slider_value):
 
-        self.slider_value = slider_value
-        print("New slider value is %d" % self.slider_value)
+        self.slider_value = 1.0 / float(slider_value)
+        print("New slider value is %f" % self.slider_value)
         if len(self.threads) > 0:
             for thread in self.threads:
                 thread.slider_value_changed(self.slider_value)

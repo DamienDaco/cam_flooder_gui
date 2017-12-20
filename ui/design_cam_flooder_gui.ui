@@ -67,8 +67,17 @@
     </item>
     <item row="3" column="0" colspan="2">
      <widget class="QSlider" name="rate_slider">
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>999</number>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
       </property>
      </widget>
     </item>
